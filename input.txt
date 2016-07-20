@@ -1,0 +1,4 @@
+fun absoluteValue(x) = if(x < 0) then(x *~1) else (x)
+fun multiply(x,y) = absoluteValue(x) * absoluteValue(y)
+val z = absoluteValue(3)
+val x = multiply(z)
