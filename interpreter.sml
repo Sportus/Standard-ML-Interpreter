@@ -282,7 +282,7 @@ else if(s = ">=") then true
 else if(s = "<=") then true
 else false
 
-
+(*Compares two values.  Currently only less than, equals and greater than operators are functional*)
 fun getComparator(s : string) =
 if(s = "<") then LESSTHAN
 else if(s =">") then GREATERTHAN
@@ -337,6 +337,7 @@ let
 	build(tokens, [], false)
 end
 
+(*Removes a specific expression from an if else statement*)
 fun removeGenericStatement(tokens : string list, statement : string) = 
 let 
 	fun removeUntilStatement(tokens) = 
@@ -354,7 +355,7 @@ let
 	build(statement, [], 0)
 end
 
-(*Generates an if statement for the program*)
+(*Will remove the parts of the expressions which should not be evaluated based upon values from if statement*)
 fun generateStatement(tokens) =  
 let
 	fun notContainsIf(tokens) = 
@@ -392,6 +393,7 @@ let
 	(evaluatePostFix(postFix, []))
 end
 
+(*Gets arguments for a function*)
 fun getArguments(tokens : string list, parems, funMap, paremMap) = 
 		let
 		fun getP(tokens : string list, buildArgument : string, argList, numParens : int) = 
@@ -551,16 +553,15 @@ end
 fun handleFunction(line : string, funList : string list list) =  (print("Fun: " ^ getFunctionName(line) ^"\n"); mapAdd(funList, getFunctionName(line), getRHS(line)))
 
 (*Main function of the program*)
-fun interpret(inFile : string, outFile : string) =
+fun interpret(inFile : string) =
 	let
 		val _ = print("SML INTERPRETER\n\n")
 		val inStream = TextIO.openIn inFile
 		val readLine = TextIO.inputLine inStream
-		val outStream = TextIO.openOut outFile
 		val blank = []
 			fun helper(readLine : string option, varMap : string list list, funMap :string list list, paremMap : string list list) =
 				case readLine of
-					NONE => (TextIO.closeIn inStream; TextIO.closeOut outStream; print("\n\n"))
+					NONE => (TextIO.closeIn inStream)
 					| SOME(c) => (
 					let 
 					val line = removeEnd(explode(c))
@@ -571,4 +572,4 @@ fun interpret(inFile : string, outFile : string) =
 	in 
 		helper(readLine, blank, blank, blank)
 	end
-val _ = interpret("input.txt", "output.txt")
+val _ = interpret("input.txt")
