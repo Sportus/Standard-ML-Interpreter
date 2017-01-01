@@ -1,5 +1,5 @@
 # Standard-ML-Interpreter
-Created as Honors Assignment for Univeristy at Buffalo CSE305 Introduction to Programming Languagues.
+Created as Honors Assignment for University at Buffalo CSE305 Introduction to Programming Languagues.
 
 Can take a well formed mathematical expression in Standard ML syntax and perform artihmetic operations.  
 1.  Handles Variable Bindings
